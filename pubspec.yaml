@@ -41,6 +41,10 @@ flutter:
   # Importing assets used here
   assets:
     - assets/images/dart_bird.png
+    - assets/audio/flap-1.ogg
+    - assets/audio/flap-2.ogg
+    - assets/audio/flap-3.ogg
+    - assets/audio/flap-4.ogg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

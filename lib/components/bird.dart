@@ -3,14 +3,20 @@ import 'package:flutter/widgets.dart';
 import 'package:box2d_flame/box2d.dart';
 import 'package:flame/box2d/box2d_component.dart';
 import 'package:flutty_bird/util.dart';
+import 'dart:math';
+import 'package:flame/flame.dart';
 
 class BirdComponent extends BodyComponent {
   static const num BIRD_RADIUS = 13.0;
   bool flying;
+  Random rnd = Random();
 
   ImagesLoader images = new ImagesLoader();
 
   BirdComponent(box2d) : super(box2d) {
+    Flame.audio
+        .loadAll(['flap-1.ogg', 'flap-2.ogg', 'flap-3.ogg', 'flap-4.ogg']);
+
     images.load('neutral', 'dart_bird.png');
     _createBody();
   }
@@ -54,8 +60,10 @@ class BirdComponent extends BodyComponent {
   }
 
   void onTapDown(TapDownDetails details) {
-    var currentVelocity = body.getLinearVelocityFromLocalPoint(body.position);
     Vector2 force = new Vector2(1.0, 8.0)..scale(60.0);
     body.applyLinearImpulse(force, this.center, true);
+
+    num nextInt = rnd.nextInt(4) + 1;
+    Flame.audio.play('flap-$nextInt.ogg');
   }
 }
