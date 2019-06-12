@@ -10,8 +10,8 @@ class DefaultLevel {
         box, Orientation.portrait, 1.0, 0.05, Alignment.topCenter));
     _bodies.add(new WallBody(
         box, Orientation.portrait, 1.0, 0.05, Alignment.bottomCenter));
-    //_bodies.add(new WallBody(
-    //    box, Orientation.portrait, 0.05, 1.0, Alignment.centerRight));
+    /*_bodies.add(new WallBody(
+        box, Orientation.portrait, 0.05, 1.0, Alignment.centerRight));*/
     _bodies.add(new WallBody(
         box, Orientation.portrait, 0.05, 1.0, Alignment.centerLeft));
   }
