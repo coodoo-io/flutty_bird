@@ -16,7 +16,9 @@ class BirdComponent extends BodyComponent {
   }
 
   @override
-  void update(double t) {}
+  void update(double t) {
+    super.update(t);
+  }
 
   @override
   void renderCircle(Canvas canvas, Offset center, double radius) {
@@ -47,15 +49,15 @@ class BirdComponent extends BodyComponent {
     activeBodyDef.position = new Vector2(0.0, 15.0);
     activeBodyDef.type = BodyType.DYNAMIC;
     activeBodyDef.bullet = true;
+    activeBodyDef.gravityScale = 10.0;
     BodyDef bodyDef = activeBodyDef;
-
     this.body = world.createBody(bodyDef)
       ..createFixtureFromFixtureDef(fixtureDef);
   }
 
   void onTapDown(TapDownDetails details) {
     var currentVelocity = body.getLinearVelocityFromLocalPoint(body.position);
-    Vector2 force = new Vector2(1.0, 8.0)..scale(60.0);
+    Vector2 force = new Vector2(1.0, 8.0)..scale(560.0);
     body.applyLinearImpulse(force, this.center, true);
   }
 }
