@@ -24,6 +24,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
+  # Game engine functionality
+  flame: ^0.10.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -34,6 +37,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
+  # Importing assets used here
+  assets:
+    - assets/images/dart_bird.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
