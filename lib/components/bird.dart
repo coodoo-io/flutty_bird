@@ -16,6 +16,7 @@ class BirdComponent extends BodyComponent {
   BirdComponent(box2d) : super(box2d) {
     Flame.audio
         .loadAll(['flap-1.ogg', 'flap-2.ogg', 'flap-3.ogg', 'flap-4.ogg']);
+    Flame.audio.disableLog();
 
     images.load('neutral', 'dart_bird.png');
     _createBody();
@@ -62,7 +63,7 @@ class BirdComponent extends BodyComponent {
   }
 
   void onTapDown(TapDownDetails details) {
-    Vector2 force = new Vector2(1.0, 8.0)..scale(560.0);
+    Vector2 force = new Vector2(1.5, 8.0)..scale(560.0);
     body.applyLinearImpulse(force, this.center, true);
 
     num nextInt = rnd.nextInt(4) + 1;

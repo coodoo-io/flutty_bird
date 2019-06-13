@@ -1,31 +1,45 @@
+import 'dart:math';
+
 import 'package:box2d_flame/box2d.dart';
 import 'package:flame/box2d/box2d_component.dart';
 import 'package:flutter/widgets.dart';
 
 class DefaultLevel {
   List<BodyComponent> _bodies = new List();
+  Random random = Random();
 
   DefaultLevel(Box2DComponent box) {
     // Decke
     _bodies.add(new WallBody(
-        box, Orientation.portrait, 100.0, 0.05, Alignment.topCenter));
+        box, Orientation.portrait, 200.0, 0.05, Alignment.topCenter));
     // Linke Wand
     _bodies.add(new WallBody(
         box, Orientation.portrait, 0.05, 1.0, Alignment.centerLeft));
     // Boden
     _bodies.add(new WallBody(
-        box, Orientation.portrait, 100.0, 0.05, Alignment.bottomCenter));
+        box, Orientation.portrait, 200.0, 0.05, Alignment.bottomCenter));
     // Rechte Wand
     // _bodies.add(new WallBody(
     //     box, Orientation.portrait, 0.05, 1.0, Alignment.centerRight));
     // Hindernisse
     // DURCH IRGENDEINEN GRUND IST WIDTH UND HEIGHT NULL!
     // Ist erstmal ok, da die kollision fest auf diese größe gestellt worden ist.
-    _bodies.add(new CollisionBody(box, 200.0, 0.0, 10.0, 10.0));
+    for (var i = 0; i < 50; i++) {
+      _bodies.add(getNewObstacle(box, i));
+    }
+  }
 
-    _bodies.add(new CollisionBody(box, 400.0, 100.0, 100.0, 100.0));
-
-    _bodies.add(new CollisionBody(box, 600.0, -100.0, 100.0, 100.0));
+  CollisionBody getNewObstacle(box, i) {
+    num x;
+    num y;
+    x = random.nextInt(50) + (i * 300) + 50;
+    y = random.nextInt(190);
+    if (random.nextBool() == true) {
+      y = y * -1;
+    }
+    x = x.toDouble();
+    y = y.toDouble();
+    return CollisionBody(box, x, y, 100, 100);
   }
 
   List<BodyComponent> get bodies => _bodies;
@@ -82,7 +96,6 @@ class CollisionBody extends BodyComponent {
   }
 
   void _createBody() {
-
     final shape = new PolygonShape();
     shape.setAsBoxXY(10.0 / 2, 10.0 / 2);
 
