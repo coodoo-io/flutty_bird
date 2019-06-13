@@ -18,13 +18,16 @@ class FluttyWorld extends Box2DComponent {
   void update(t) {
     super.update(t);
     bird.update(t);
-    var i = 0;
+    // var i = 0;
     _bodies.forEach((body) {
-      if(bird.body.position.distanceTo(body.body.position) < 20){
-        print((body is CollisionBody));
-        print("hit bei box: " + i.toString());
+      if(bird.body.position.distanceTo(body.body.position) < 21){
+        if (body is CollisionBody) {
+        remove(bird);
+        bird = new BirdComponent(this);
+        add(bird);
+        }
       }
-      i++;
+      // i++;
       body.update(t);
     });
     cameraFollow(bird, horizontal: 0.4, vertical: 0.4);
