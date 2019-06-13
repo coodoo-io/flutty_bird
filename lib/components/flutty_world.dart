@@ -6,15 +6,27 @@ class FluttyWorld extends Box2DComponent {
   BirdComponent bird;
 
   FluttyWorld() : super(scale: 4.0);
-
+  List<BodyComponent> _bodies;
   void initializeWorld() {
-    addAll(new DefaultLevel(this).bodies);
-    add(bird = new BirdComponent(this));
+    _bodies = new DefaultLevel(this).bodies;
+    bird = new BirdComponent(this);
+    addAll(_bodies);
+    add(bird);
   }
 
   @override
   void update(t) {
     super.update(t);
+    bird.update(t);
+    var i = 0;
+    _bodies.forEach((body) {
+      if(bird.body.position.distanceTo(body.body.position) < 20){
+        print((body is CollisionBody));
+        print("hit bei box: " + i.toString());
+      }
+      i++;
+      body.update(t);
+    });
     cameraFollow(bird, horizontal: 0.4, vertical: 0.4);
   }
 }
