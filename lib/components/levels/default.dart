@@ -11,20 +11,20 @@ class DefaultLevel {
   DefaultLevel(Box2DComponent box) {
     // Decke
     _bodies.add(new WallBody(
-        box, Orientation.portrait, 200.0, 0.05, Alignment.topCenter));
+        box, Orientation.portrait, 300.0, 0.05, Alignment.topCenter));
     // Linke Wand
     _bodies.add(new WallBody(
         box, Orientation.portrait, 0.05, 1.0, Alignment.centerLeft));
     // Boden
     _bodies.add(new WallBody(
-        box, Orientation.portrait, 200.0, 0.05, Alignment.bottomCenter));
+        box, Orientation.portrait, 300.0, 0.05, Alignment.bottomCenter));
     // Rechte Wand
     // _bodies.add(new WallBody(
     //     box, Orientation.portrait, 0.05, 1.0, Alignment.centerRight));
     // Hindernisse
     // DURCH IRGENDEINEN GRUND IST WIDTH UND HEIGHT NULL!
     // Ist erstmal ok, da die kollision fest auf diese größe gestellt worden ist.
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < 100; i++) {
       _bodies.add(getNewObstacle(box, i));
     }
   }
