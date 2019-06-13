@@ -6,6 +6,7 @@ import 'package:flutty_bird/components/levels/default.dart';
 import 'package:flutty_bird/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'bird.dart';
+import 'package:flame/flame.dart';
 
 class FluttyWorld extends Box2DComponent {
   BirdComponent bird;
@@ -32,6 +33,8 @@ class FluttyWorld extends Box2DComponent {
       print(highscore);
       _highscore = highscore;
     });
+    Flame.audio.load('explosion.mp3');
+
     _bodies = new DefaultLevel(this).bodies;
     _bodies.forEach((body) {
       pointGranted.add(false);
@@ -66,6 +69,12 @@ class FluttyWorld extends Box2DComponent {
           setScore(_highscore).then((result) {
             runApp(InitialApp());
           });
+        if (body is CollisionBody) {
+          Flame.audio.play('explosion.mp3');
+          setScore(_highscore).then((result) {
+            runApp(InitialApp());
+          });
+        }
       }
       i++;
       body.update(t);

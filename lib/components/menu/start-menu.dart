@@ -95,22 +95,6 @@ class _StartMenu extends State<StartMenu> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.greenAccent),
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-        ),
-        child: Text(
-          "+",
-          style: TextStyle(
-            color: Colors.greenAccent,
-            fontSize: 30,
-          ),
-        ),
-        onPressed: () => print(_score),
-      ),
     );
   }
 }

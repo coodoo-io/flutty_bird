@@ -49,6 +49,7 @@ flutter:
     - assets/audio/flap-2.ogg
     - assets/audio/flap-3.ogg
     - assets/audio/flap-4.ogg
+    - assets/audio/explosion.mp3
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

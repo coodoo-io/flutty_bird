@@ -49,22 +49,23 @@ class BirdComponent extends BodyComponent {
     activeFixtureDef.shape = shape;
     activeFixtureDef.restitution = 0.0;
     activeFixtureDef.density = 0.05;
-    activeFixtureDef.friction = 0.2;
+    activeFixtureDef.friction = 0.001;
     FixtureDef fixtureDef = activeFixtureDef;
     final activeBodyDef = new BodyDef();
     activeBodyDef.linearVelocity = new Vector2(0.0, 0.0);
     activeBodyDef.position = new Vector2(0.0, 15.0);
     activeBodyDef.type = BodyType.DYNAMIC;
     activeBodyDef.bullet = true;
-    activeBodyDef.gravityScale = 10.0;
+    activeBodyDef.gravityScale = 11.0;
     BodyDef bodyDef = activeBodyDef;
     this.body = world.createBody(bodyDef)
       ..createFixtureFromFixtureDef(fixtureDef);
   }
 
   void onTapDown(TapDownDetails details) {
-    Vector2 force = new Vector2(1.5, 8.0)..scale(560.0);
-    body.applyLinearImpulse(force, this.center, true);
+    Vector2 force = new Vector2(1.6, 8.0)..scale(560.0);
+    body.applyLinearImpulse(
+        force, Vector2(this.center.x - 5, this.center.y - 5), true);
 
     num nextInt = rnd.nextInt(4) + 1;
     Flame.audio.play('flap-$nextInt.ogg');
