@@ -4,6 +4,7 @@ import 'package:flame/box2d/box2d_component.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutty_bird/components/levels/default.dart';
 import 'bird.dart';
+import 'package:flame/flame.dart';
 
 class FluttyWorld extends Box2DComponent {
   BirdComponent bird;
@@ -15,6 +16,8 @@ class FluttyWorld extends Box2DComponent {
   List<BodyComponent> _bodies;
 
   void initializeWorld() {
+    Flame.audio.load('explosion.mp3');
+
     _bodies = new DefaultLevel(this).bodies;
     _bodies.forEach((body) {
       pointGranted.add(false);
@@ -46,6 +49,7 @@ class FluttyWorld extends Box2DComponent {
 
       if (bird.body.position.distanceTo(body.body.position) < 21) {
         if (body is CollisionBody) {
+          Flame.audio.play('explosion.mp3');
           remove(bird);
           pointGranted.clear();
           for (var i = 0; i < _bodies.length; i++) {
