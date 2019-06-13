@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/services.dart';
+import 'package:flutty_bird/components/menu/start-menu.dart';
 import 'flutty-game.dart';
 import 'package:flutter/gestures.dart';
 
+var points = 3;
 
-void main() => runApp(MyApp());
+void main() => runApp(InitialApp());
 
 void runGame() async {
   Util flameUtil = Util();
@@ -20,12 +22,11 @@ void runGame() async {
   flameUtil.addGestureRecognizer(tapper);
 }
 
-
-class MyApp extends StatelessWidget {
+class InitialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Bird',
       theme: ThemeData(
         primaryColor: Colors.black,
         accentColor: Colors.black,
@@ -35,87 +36,7 @@ class MyApp extends StatelessWidget {
           title: TextStyle(color: Colors.greenAccent),
         ),
       ),
-      home: MainApp(),
-    );
-  }
-}
-
-class MainApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Der große Spaß"),
-        shape: Border(
-          top: BorderSide(style: BorderStyle.none),
-          left: BorderSide(style: BorderStyle.none),
-          right: BorderSide(style: BorderStyle.none),
-          bottom: BorderSide(width: 2.0, color: Colors.greenAccent),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: RaisedButton(
-                onPressed: () {runGame();},
-                child: Text(
-                  'Start',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.greenAccent,
-                  ),
-                ),
-                color: Colors.black,
-                highlightColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.greenAccent),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              child: RaisedButton(
-                onPressed: () {},
-                child: Text(
-                  'Ende',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.greenAccent,
-                  ),
-                ),
-                color: Colors.black,
-                highlightColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.greenAccent),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.greenAccent),
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-        ),
-        child: Text(
-          "+",
-          style: TextStyle(
-            color: Colors.greenAccent,
-            fontSize: 30,
-          ),
-        ),
-        onPressed: () => print("Leon was here"),
-      ),
+      home: StartMenu(),
     );
   }
 }
