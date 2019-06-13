@@ -3,18 +3,35 @@ import 'dart:math';
 import 'package:flame/box2d/box2d_component.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutty_bird/components/levels/default.dart';
+import 'package:flutty_bird/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'bird.dart';
 
 class FluttyWorld extends Box2DComponent {
   BirdComponent bird;
-  num score = 0;
+  int score = 0;
+  int _highscore = 0;
   List<bool> pointGranted = List<bool>();
   Random random = Random();
 
   FluttyWorld() : super(scale: 4.0);
   List<BodyComponent> _bodies;
 
+  Future<bool> setScore(int value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setInt("score", value);
+  }
+
+  Future<int> getScore() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt("score");
+  }
+
   void initializeWorld() {
+    getScore().then((highscore) {
+      print(highscore);
+      _highscore = highscore;
+    });
     _bodies = new DefaultLevel(this).bodies;
     _bodies.forEach((body) {
       pointGranted.add(false);
@@ -31,30 +48,24 @@ class FluttyWorld extends Box2DComponent {
 
     var i = 0;
 
-    //print(_bodies[1].body.position.x);
-    //print(bird.body.position.x);
     _bodies.forEach((body) {
       if (body.body.position.x < bird.body.position.x) {
         //don't score walls
         if (i > 2) {
           if (pointGranted[i] == false) {
             score++;
+            if (_highscore < score) {
+              _highscore = score;
+            }
             pointGranted[i] = true;
           }
         }
       }
 
       if (bird.body.position.distanceTo(body.body.position) < 21) {
-        if (body is CollisionBody) {
-          remove(bird);
-          pointGranted.clear();
-          for (var i = 0; i < _bodies.length; i++) {
-            this.pointGranted.add(false);
-          }
-          score = 0;
-          bird = new BirdComponent(this);
-          add(bird);
-        }
+          setScore(_highscore).then((result) {
+            runApp(InitialApp());
+          });
       }
       i++;
       body.update(t);

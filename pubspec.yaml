@@ -20,6 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  shared_preferences: ^0.5.0
+  provider: ^3.0.0
+  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -41,6 +44,7 @@ flutter:
   # Importing assets used here
   assets:
     - assets/images/dart_bird.png
+    - assets/images/dart_bird_reverse.png
     - assets/audio/flap-1.ogg
     - assets/audio/flap-2.ogg
     - assets/audio/flap-3.ogg

@@ -3,17 +3,24 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutty_bird/main.dart';
+import 'package:flutty_bird/services/share_preferences.dart';
+import 'package:provider/provider.dart';
 
 class StartMenu extends StatefulWidget {
   @override
-  _AnimatedContainerDemoState createState() => _AnimatedContainerDemoState();
+  _StartMenu createState() => _StartMenu();
 }
 
-class _AnimatedContainerDemoState extends State<StartMenu> {
-  var _switch = false;
+// Das State wird gebraucht bei Animationen in Flutter z.B. von AnimatedContainer
+class _StartMenu extends State<StartMenu> {
+  int _score = 0;
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<SharedPreferencesService>(context).getScore().then((score) {
+      _score = score;
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -29,7 +36,7 @@ class _AnimatedContainerDemoState extends State<StartMenu> {
               child: Text('Flutty-Bird'),
             ),
             Image.asset(
-              'assets/images/dart_bird.png',
+              'assets/images/dart_bird_reverse.png',
               fit: BoxFit.contain,
               height: 32,
             ),
@@ -68,6 +75,23 @@ class _AnimatedContainerDemoState extends State<StartMenu> {
                 ),
               ),
             ),
+            Container(
+              child: Text(
+                'Highscore',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.greenAccent,
+                ),
+              ),
+            ),Container(
+              child: Text(
+                "$_score",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.greenAccent,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -85,7 +109,7 @@ class _AnimatedContainerDemoState extends State<StartMenu> {
             fontSize: 30,
           ),
         ),
-        onPressed: () => print("Leon was here"),
+        onPressed: () => print(_score),
       ),
     );
   }
